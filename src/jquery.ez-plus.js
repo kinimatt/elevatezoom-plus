@@ -619,7 +619,13 @@ if (typeof Object.create !== 'function') {
             //this can be caused by other on page elements
             self.nzHeight = self.$elem.height();
             self.nzWidth = self.$elem.width();
-            self.nzOffset = self.$elem.offset();
+            if(self.options.zoomContainerAppendTo !== 'body') {
+                self.nzOffset = self.$elem.offset();
+                self.nzElementOffset = self.$elem.position();
+            } else {
+                self.nzOffset = self.$elem.offset();
+            }
+            
 
             if (self.options.tint && self.options.zoomType !== 'inner') {
                 self.zoomTint.css({
@@ -688,12 +694,21 @@ if (typeof Object.create !== 'function') {
             }
 
             //container fix
-            self.zoomContainer.css({
-                top: self.nzOffset.top,
-                left: self.nzOffset.left,
-                width: self.nzWidth,  // new code
-                height: self.nzHeight // new code
-            });
+            if(self.options.zoomContainerAppendTo !== 'body') {
+                self.zoomContainer.css({
+                    top: self.nzElementOffset.top,
+                    left: self.nzElementOffset.left,
+                    width: self.nzWidth,  // new code
+                    height: self.nzHeight // new code
+                });
+            }else {
+                self.zoomContainer.css({
+                    top: self.nzOffset.top,
+                    left: self.nzOffset.left,
+                    width: self.nzWidth,  // new code
+                    height: self.nzHeight // new code
+                });
+            } 
             self.mouseLeft = parseInt(e.pageX - self.nzOffset.left);
             self.mouseTop = parseInt(e.pageY - self.nzOffset.top);
             //calculate the Location of the Lens
