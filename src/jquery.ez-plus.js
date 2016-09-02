@@ -196,6 +196,7 @@ if (typeof Object.create !== 'function') {
                 return 'overflow: hidden;' +
                     'margin-left: ' + String(borderWidth) + ';' +
                     'margin-top: ' + String(borderWidth) + ';' +
+                    'background-color: ' + String(self.options.zoomWindowBgColour) + ';' +
                     'background-position: 0px 0px;' +
                     'width: ' + String(self.nzWidth) + 'px;' +
                     'height: ' + String(self.nzHeight) + 'px;' +
